@@ -6,8 +6,8 @@ This project presents a full machine learning pipeline for analyzing, predicting
 ---
 
 ## 📌 Dataset
-**Heart Disease UCI Dataset**  
-🔗 [UCI Repository Link](https://archive.ics.uci.edu/ml/datasets/heart+Disease)
+**Heart Disease UCI Dataset From Kaggle**  
+🔗 [UCI Repository Link](https://www.kaggle.com/datasets/redwankarimsony/heart-disease-data)
 
 ---
 
@@ -142,3 +142,7 @@ Heart_Disease_Project/
 - 🖥️ Streamlit app for live prediction [Bonus]
 - 🌐 Ngrok deployment link [Bonus]
 - 📂 GitHub repo with all code & instructions
+---
+## 👩🏽‍💻 Author
+# Tasneem Mohamed Ahmed Mohamed Imam Badr
+# 🔗 [LinkedIn Link](https://www.linkedin.com/in/tasneem-mohamed-714b5a2b1/)
