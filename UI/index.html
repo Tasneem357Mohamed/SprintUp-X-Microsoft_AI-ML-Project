@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HeartEval offers personalized heart health assessments for accurate and accessible heart disease risk detection.">
+    <meta name="keywords" content="heart health, heart disease, risk assessment, HeartEval">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HeartEval - Heart Disease Risk Assessment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/all.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&family=Arima:wght@100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </head>
+    <body>
+        <div class="page1">
+            <div class="nav">
+                <div class="logo">
+                    <i class="fa-solid fa-heart-pulse"></i>
+                    <p class="logo-p">HeartEval</p>
+                </div>
+                <ul class="nav-bar">
+                    <li>About</li>
+                    <li>Portfolio</li>
+                    <li>Services</li>
+                    <li>Team</li>
+                    <li>Blog</li>
+                </ul>
+            </div>
+            <div class="sides">
+                <div class="left-side">
+                    <div class="choose-us">
+                        <h1>why choose us</h1>
+                        <div class="d"></div>
+                    </div>
+                    <p>
+                        At <strong>HeartEval</strong>, we offer smart and personalized heart health assessments designed to<br> put your well-being first. 
+                        Our mission is to make heart disease risk detection accurate,<br> accessible, and empowering — giving you clear insights and control over your health.
+                    </p>
+                    <ul class="features">
+                    <li><i class="fa-solid fa-circle-check"></i>  Intelligent, data-driven heart evaluations</li>
+                    <li><i class="fa-solid fa-circle-check"></i>  In-depth analysis of essential health metrics</li>
+                    <li><i class="fa-solid fa-circle-check"></i>  Tailored heart disease risk scoring</li>
+                    <li><i class="fa-solid fa-circle-check"></i>  Early detection to support preventive care</li>
+                    <li><i class="fa-solid fa-circle-check"></i>  User-friendly and accessible for everyone</li>
+                    </ul>
+                </div>
+                <div class="right-side">
+                    <div class="cover" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page2">
+            <h1>Heart Disease Predictor</h1>
+            <div class="line"></div>
+            <form id="predict-form" action="/predict" method="POST">
+                <select id="sex" name="sex" required>
+                    <option value="" disabled selected>Select your sex</option>
+                    <option value="1">Female</option>
+                    <option value="0">Male</option>
+                </select>
+                <div class="down">
+                    <div class="up_down">
+                        <div class="left_group">
+                            <select id="restecg" name="restecg" required>
+                                <option value="" disabled selected>Select ECG result</option>
+                                <option value="0">Normal</option>
+                                <option value="1">ST-T wave abnormality</option>
+                                <option value="2">Left ventricular hypertrophy</option>
+                            </select>
+                            <select id="thal" name="thal" required>
+                                <option value="" disabled selected>Select thalassemia</option>
+                                <option value="0">Normal</option>
+                                <option value="1">Fixed defect</option>
+                                <option value="2">Reversible defect</option>
+                            </select>
+                        </div>
+                        <div class="right_group">
+                            <select id="cp" name="cp" required>
+                                <option value="" disabled selected>Select chest pain type</option>
+                                <option value="0">Typical angina</option>
+                                <option value="1">Atypical angina</option>
+                                <option value="2">Non-anginal pain</option>
+                                <option value="3">Asymptomatic</option>
+                            </select>
+                            <select id="slope" name="slope" required>
+                                <option value="" disabled selected>Select slope</option>
+                                <option value="0">Upsloping</option>
+                                <option value="1">Flat</option>
+                                <option value="2">Downsloping</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="dwon_down">
+                        <fieldset>
+                            <legend>Fasting Blood Sugar:</legend>
+                            <label>
+                                <input type="radio" name="fbs" value="0" required> ≤120 mg/dl
+                            </label>
+                            <label>
+                                <input type="radio" name="fbs" value="1"> >120 mg/dl
+                            </label>
+                        </fieldset>
+                        <fieldset class="filed_right">
+                            <legend>Exercise-Induced Angina:</legend>
+                            <label>
+                                <input type="radio" name="exang" value="0" required> No
+                            </label>
+                            <label>
+                                <input type="radio" name="exang" value="1"> Yes
+                            </label>
+                        </fieldset>
+                    </div>
+                </div>
+                <button type="submit">Predict</button>
+            </form>
+            <div id="result" style="margin-top: 20px; font-size: 24px; text-align: center;"></div>
+        </div>
+        <script>
+            document.getElementById("predict-form").addEventListener("submit", async function(e) {
+                e.preventDefault();
+            
+                const formData = new FormData(this);
+                const response = await fetch("/predict", {
+                    method: "POST",
+                    body: formData
+                });
+            
+                const data = await response.json();
+                const resultDiv = document.getElementById("result");
+            
+                if (data.result) {
+                    resultDiv.innerHTML = `Prediction: <strong>${data.result}</strong>`;
+                    resultDiv.style.color = data.result === "High Risk" ? "#bf3b34" : "#2e7d32";
+                } else {
+                    resultDiv.innerHTML = `Error: ${data.error}`;
+                    resultDiv.style.color = "#bf3b34";
+                }
+            });
+            </script>
+    </body>
+</html>

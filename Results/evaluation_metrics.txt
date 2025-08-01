@@ -1,0 +1,6 @@
+XGBoost Evaluation Metrics:
+Accuracy: 0.8207
+Precision: 0.8545
+Recall: 0.8468
+F1 Score: 0.8507
+AUC Score: 0.8632

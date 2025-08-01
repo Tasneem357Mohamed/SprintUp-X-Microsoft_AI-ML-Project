@@ -1,0 +1,92 @@
+
+📁 File: ngrok_setup.txt
+
+---
+
+## 🔧 Project File Structure
+
+your_project/
+│
+├── app.py                    # Your main Flask application file
+├── xgboost_pipeline.pkl      # Trained model file
+├── templates/
+│   └── index.html            # HTML form for user input
+├── static/                   # (Optional) Static assets (CSS, images)
+│   └── css                   # css Folder
+|	 └── style.css 
+|	 └── all.css   
+|   └── images 
+|_____	 └── Background.png 
+
+
+---
+
+## 🚀 Setup & Run Instructions
+
+### 1. 📦 Install Dependencies
+
+Make sure you have Python installed. Then, in your terminal:
+
+pip install flask pyngrok joblib numpy
+
+### 2. 🧠 Place Model File
+
+Ensure that xgboost_pipeline.pkl is present in your project root or adjust the path in app.py accordingly.
+
+If you're not using Google Colab, replace this line in app.py:
+
+model = joblib.load("/content/xgboost_pipeline.pkl")
+
+with:
+
+model = joblib.load("xgboost_pipeline.pkl")
+
+---
+
+### 3. 🌐 Run Flask App with ngrok
+
+python app.py
+
+Once running, you’ll see an output like:
+
+ * ngrok tunnel: http://xxxx.ngrok.io
+
+Copy this URL — it is your public web app link.
+
+---
+
+### 4. 🧪 Interact with the App
+
+- Visit the ngrok URL in your browser.
+- Use the form in index.html to submit input.
+- The result (High Risk or Low Risk) will be shown via JSON response.
+
+---
+
+### ✅ Example index.html (templates/index.html)
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Heart Risk Prediction</title>
+</head>
+<body>
+    <form action="/predict" method="post">
+        <label>Sex:</label><input type="number" name="sex"><br>
+        <label>FBS:</label><input type="number" name="fbs"><br>
+        <label>Exang:</label><input type="number" name="exang"><br>
+        <label>RestECG:</label><input type="number" name="restecg"><br>
+        <label>Thal:</label><input type="number" name="thal"><br>
+        <label>CP:</label><input type="number" name="cp"><br>
+        <label>Slope:</label><input type="number" name="slope"><br>
+        <input type="submit" value="Predict">
+    </form>
+</body>
+</html>
+
+---
+
+### 📝 Notes
+
+- Do not share your ngrok link publicly, especially if the model handles sensitive data.
+- You may need to sign in to ngrok and set an auth token if you hit limits.
