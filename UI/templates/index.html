@@ -7,8 +7,8 @@
     <meta name="keywords" content="heart health, heart disease, risk assessment, HeartEval">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HeartEval - Heart Disease Risk Assessment</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/all.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&family=Arima:wght@100..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     </head>
@@ -54,11 +54,11 @@
         <div class="page2">
             <h1>Heart Disease Predictor</h1>
             <div class="line"></div>
-            <form action="/predict" method="POST">
+            <form id="predict-form" action="/predict" method="POST">
                 <select id="sex" name="sex" required>
                     <option value="" disabled selected>Select your sex</option>
-                    <option value="Female">Female</option>
-                    <option value="Male">Male</option>
+                    <option value="1">Female</option>
+                    <option value="0">Male</option>
                 </select>
                 <div class="down">
                     <div class="up_down">
@@ -71,24 +71,24 @@
                             </select>
                             <select id="thal" name="thal" required>
                                 <option value="" disabled selected>Select thalassemia</option>
-                                <option value="3">Normal</option>
-                                <option value="6">Fixed defect</option>
-                                <option value="7">Reversible defect</option>
+                                <option value="0">Normal</option>
+                                <option value="1">Fixed defect</option>
+                                <option value="2">Reversible defect</option>
                             </select>
                         </div>
                         <div class="right_group">
                             <select id="cp" name="cp" required>
                                 <option value="" disabled selected>Select chest pain type</option>
-                                <option value="1">Typical angina</option>
-                                <option value="2">Atypical angina</option>
-                                <option value="3">Non-anginal pain</option>
-                                <option value="4">Asymptomatic</option>
+                                <option value="0">Typical angina</option>
+                                <option value="1">Atypical angina</option>
+                                <option value="2">Non-anginal pain</option>
+                                <option value="3">Asymptomatic</option>
                             </select>
                             <select id="slope" name="slope" required>
                                 <option value="" disabled selected>Select slope</option>
-                                <option value="1">Upsloping</option>
-                                <option value="2">Flat</option>
-                                <option value="3">Downsloping</option>
+                                <option value="0">Upsloping</option>
+                                <option value="1">Flat</option>
+                                <option value="2">Downsloping</option>
                             </select>
                         </div>
                     </div>
@@ -115,6 +115,29 @@
                 </div>
                 <button type="submit">Predict</button>
             </form>
+            <div id="result" style="margin-top: 20px; font-size: 24px; text-align: center;"></div>
         </div>
+        <script>
+            document.getElementById("predict-form").addEventListener("submit", async function(e) {
+                e.preventDefault();
+            
+                const formData = new FormData(this);
+                const response = await fetch("/predict", {
+                    method: "POST",
+                    body: formData
+                });
+            
+                const data = await response.json();
+                const resultDiv = document.getElementById("result");
+            
+                if (data.result) {
+                    resultDiv.innerHTML = `Prediction: <strong>${data.result}</strong>`;
+                    resultDiv.style.color = data.result === "High Risk" ? "#bf3b34" : "#2e7d32";
+                } else {
+                    resultDiv.innerHTML = `Error: ${data.error}`;
+                    resultDiv.style.color = "#bf3b34";
+                }
+            });
+            </script>
     </body>
 </html>
