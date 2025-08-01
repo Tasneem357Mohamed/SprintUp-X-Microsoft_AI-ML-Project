@@ -20,6 +20,9 @@ This project presents a full machine learning pipeline for analyzing, predicting
   - Decision Trees
   - Random Forest
   - SVM
+  - KNN
+  - XGBoost
+  - Gradient Boosting
 - Apply clustering algorithms:
   - K-Means
   - Hierarchical Clustering
