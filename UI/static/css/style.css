@@ -7,6 +7,7 @@ body
 {
     color: white;
     height: 100vh;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 .page1
 {
@@ -195,9 +196,10 @@ body
     border: 1px solid #fff;
     background-color: #fff;
     color: #bf3b34;
-    font-size: 16px;
+    font-size: 18px;
     padding: 5px;
     text-transform: capitalize;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 .page2 form select:focus {
     outline: none;
@@ -259,12 +261,13 @@ body
 }
 button 
 {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     margin-top: 50px;
     width: 130px;
     height: 35px;
     border-radius: 10px;
     border-style: none;
-    font-size: 20px;
+    font-size: 22px;
     background-color: #fff;
     color: #bf3b34;
     border: 2px solid #bf3b34;
